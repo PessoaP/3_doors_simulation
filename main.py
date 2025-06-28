@@ -102,19 +102,11 @@ elif st.session_state.phase == "switch":
             st.error("😢 You got a goat.")
 
 
+        #if st.button("🔁 Play Again"):
         if st.button("🔁 Play Again"):
-            st.session_state.started = False
-            st.session_state.phase = "pick"
-            st.session_state.doors = None
-            st.session_state.choice = None
-            st.session_state.monty_opens = None
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
+            st.rerun()
 
-
-            st.rerun()            
-            st.markdown(
-                """<script>window.location.href = "https://3doors.streamlit.app/";</script>""",
-                unsafe_allow_html=True
-            )
-            st.rerun()  
 
 

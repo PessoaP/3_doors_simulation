@@ -1,6 +1,7 @@
 import random
 import time
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(page_title="Monty Hall Simulator", page_icon="🚪")
 
@@ -104,8 +105,11 @@ elif st.session_state.phase == "switch":
 
         #if st.button("🔁 Play Again"):
         if st.button("🔁 Play Again"):
-            st.session_state.started = False
-            st.rerun()
+            components.html(
+                """<script>window.location.reload();</script>""",
+                height=0,
+            )
+            
 
 
 

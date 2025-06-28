@@ -115,6 +115,6 @@ elif st.session_state.phase == "switch":
                 """<script>window.location.href = "https://3doors.streamlit.app/";</script>""",
                 unsafe_allow_html=True
             )
-
+            st.rerun()  
 
 

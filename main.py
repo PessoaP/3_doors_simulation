@@ -1,11 +1,33 @@
-import random
 import streamlit as st
 
-st.title("🎲 Monty Hall Problem Simulator")
+st.title("🚪🚪🚪 The Monty Hall (or 3 doors) problem ")
+
+if "step" not in st.session_state:
+    st.session_state.step = 0
+
+descriptions = [
+    "You are in a game show. The host gives you the choice of **three doors**.",
+    "Behind **one** door is a brand-new **car**, behind the others are **goats**.",
+    "You pick a door.",
+    "The host (who knows what's behind each door) opens **another** door, revealing a **goat**.",
+    "The host then asks you: _Do you want to switch?_",
+]
+
+# Display text step-by-step
+for i in range(st.session_state.step + 1):
+    st.markdown(f"- {descriptions[i]}")
+
+if st.session_state.step < len(descriptions) - 1:
+    if st.button("▶ Next"):
+        st.session_state.step += 1
+        st.rerun()
+else:
+    st.success("Ready to play? Scroll down to try the simulator!")
+
+st.title("🎲 Monty Hall Problem Simulation")
 
 st.write("""
-Pick a door. After you choose, Monty will reveal a goat behind one of the other doors. 
-You then have the option to switch or stay. Will you win the car?
+Pick a door. 
 """)
 
 # Initialize session state for game data
@@ -18,7 +40,7 @@ if "doors" not in st.session_state:
 if st.session_state.phase == "pick":
     # Step 1: User picks a door
     choice = st.radio("Pick a door:", [1, 2, 3]) - 1
-    if st.button("Reveal Monty's door"):
+    if st.button("Let the host revel another door"):
         # Start game
         doors = ['goat', 'goat', 'car']
         random.shuffle(doors)
@@ -39,7 +61,7 @@ elif st.session_state.phase == "switch":
     # Step 2: Reveal Monty's choice and ask user if they want to switch
     st.subheader("🎬 Game Summary")
     st.write(f"You picked **Door {st.session_state.choice + 1}**.")
-    st.write(f"Monty opened **Door {st.session_state.monty_opens + 1}**, revealing a goat.")
+    st.write(f"The host opened **Door {st.session_state.monty_opens + 1}**, revealing a goat.")
 
     trade = st.radio("Do you want to switch your choice?", ["Yes", "No"]) == "Yes"
     if st.button("Final Choice"):

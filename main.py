@@ -1,6 +1,12 @@
+import random
 import streamlit as st
 
-st.title("🚪🚪🚪 The Monty Hall (or 3 doors) problem ")
+st.set_page_config(page_title="Monty Hall Simulator", page_icon="🚪")
+
+# -------------------------------
+# Introductory Step-by-Step Text
+# -------------------------------
+st.title("🚪🚪🚪 The Monty Hall (or 3 doors) Problem")
 
 if "step" not in st.session_state:
     st.session_state.step = 0
@@ -13,7 +19,6 @@ descriptions = [
     "The host then asks you: _Do you want to switch?_",
 ]
 
-# Display text step-by-step
 for i in range(st.session_state.step + 1):
     st.markdown(f"- {descriptions[i]}")
 
@@ -24,13 +29,17 @@ if st.session_state.step < len(descriptions) - 1:
 else:
     st.success("Ready to play? Scroll down to try the simulator!")
 
-st.title("🎲 Monty Hall Problem Simulation")
+# -------------------------------
+# Game Simulation
+# -------------------------------
+st.header("🎲 Monty Hall Problem Simulation")
+st.write("Pick a door:")
 
-st.write("""
-Pick a door. 
-""")
+# Emoji display of doors
+door_emojis = ["🚪", "🚪", "🚪"]
+st.write(" ".join(door_emojis))
 
-# Initialize session state for game data
+# Initialize game state
 if "doors" not in st.session_state:
     st.session_state.doors = None
     st.session_state.choice = None
@@ -38,32 +47,27 @@ if "doors" not in st.session_state:
     st.session_state.phase = "pick"
 
 if st.session_state.phase == "pick":
-    # Step 1: User picks a door
-    choice = st.radio("Pick a door:", [1, 2, 3]) - 1
-    if st.button("Let the host revel another door"):
-        # Start game
+    choice = st.radio("Which door do you choose?", [1, 2, 3]) - 1
+    if st.button("Let the host reveal another door"):
         doors = ['goat', 'goat', 'car']
         random.shuffle(doors)
 
-        # Monty reveals a goat behind a different door
         possible = [i for i in range(3) if i != choice and doors[i] == 'goat']
         monty_opens = random.choice(possible)
 
-        # Save game state
         st.session_state.doors = doors
         st.session_state.choice = choice
         st.session_state.monty_opens = monty_opens
         st.session_state.phase = "switch"
-
         st.rerun()
 
 elif st.session_state.phase == "switch":
-    # Step 2: Reveal Monty's choice and ask user if they want to switch
     st.subheader("🎬 Game Summary")
     st.write(f"You picked **Door {st.session_state.choice + 1}**.")
     st.write(f"The host opened **Door {st.session_state.monty_opens + 1}**, revealing a goat.")
 
     trade = st.radio("Do you want to switch your choice?", ["Yes", "No"]) == "Yes"
+
     if st.button("Final Choice"):
         if trade:
             final_choice = [i for i in range(3)
@@ -79,10 +83,16 @@ elif st.session_state.phase == "switch":
             st.write(f"You stayed with your original choice.")
 
         st.write(f"Behind Door {final_choice + 1} was a **{prize.upper()}**.")
+
         if prize == 'car':
             st.success("🎉 You WON the car!")
         else:
             st.error("😢 You got a goat.")
 
-        # Reset phase so you can play again
-        st.session_state.phase = "pick"
+        # Replay button
+        if st.button("🔁 Play Again"):
+            st.session_state.phase = "pick"
+            st.session_state.doors = None
+            st.session_state.choice = None
+            st.session_state.monty_opens = None
+            st.rerun()

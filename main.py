@@ -104,8 +104,7 @@ elif st.session_state.phase == "switch":
 
         #if st.button("🔁 Play Again"):
         if st.button("🔁 Play Again"):
-            for key in list(st.session_state.keys()):
-                del st.session_state[key]
+            st.session_state.started = False
             st.rerun()
 
 

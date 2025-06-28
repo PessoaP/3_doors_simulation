@@ -101,11 +101,11 @@ elif st.session_state.phase == "switch":
         else:
             st.error("😢 You got a goat.")
 
+
         if st.button("🔁 Play Again"):
-            st.session_state.started = False
-            st.session_state.phase = "pick"
-            st.session_state.doors = None
-            st.session_state.choice = None
-            st.session_state.monty_opens = None
-            st.rerun()
+            st.markdown(
+                """<script>window.location.reload();</script>""",
+                unsafe_allow_html=True
+            )
+
 

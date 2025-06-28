@@ -104,8 +104,9 @@ elif st.session_state.phase == "switch":
 
         if st.button("🔁 Play Again"):
             st.markdown(
-                """<script>window.location.reload();</script>""",
+                """<script>window.location.href = "https://3doors.streamlit.app/";</script>""",
                 unsafe_allow_html=True
             )
+
 
 

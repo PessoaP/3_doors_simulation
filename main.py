@@ -105,6 +105,8 @@ elif st.session_state.phase == "switch":
 
         #if st.button("🔁 Play Again"):
         if st.button("🔁 Play Again"):
+            st.cache_data.clear()
+
             components.html(
                 """<script>window.location.reload();</script>""",
                 height=0,

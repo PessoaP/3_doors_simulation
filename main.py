@@ -126,7 +126,7 @@ elif st.session_state.phase == "switch":
             """
             <hr>
             <p style='font-size:24px;'> For a detailed explanation of why switching is definitely the best strategy (and also how I made this game) check out my 
-            <a href='https://github.com/PessoaP/blog/blob/master/3doors/3doors.ipynb' target='_blank'>blog post</a>.</p>
+            <a href='https://labpresse.com/the-monty-hall-or-3-doors-problem/' target='_blank'>blog post</a>.</p>
             """,
             unsafe_allow_html=True
         )

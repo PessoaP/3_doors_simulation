@@ -23,7 +23,7 @@ if "started" not in st.session_state:
     st.session_state.started = False
 
 if not st.session_state.started:
-    if st.button("🎮 Start Game"):
+    if st.button("🎮 Start Game 🎮"):
         st.session_state.started = True
         st.rerun()
     st.stop()
@@ -31,7 +31,7 @@ if not st.session_state.started:
 # -------------------------------
 # Game Simulation
 # -------------------------------
-st.header("🎲 Monty Hall Problem Simulation")
+st.header("Monty Hall Problem Simulation")
 st.markdown("<p style='font-size:18px;'>Pick a door:</p>", unsafe_allow_html=True)
 st.write("🚪  🚪  🚪")
 
@@ -64,6 +64,7 @@ elif st.session_state.phase == "switch":
 
     st.subheader("🎬 Game Summary")
     st.markdown(f"<p style='font-size:18px;'>You picked <strong>Door {choice + 1}</strong>.</p>", unsafe_allow_html=True)
+    
     st.markdown(f"<p style='font-size:18px;'>The host opened <strong>Door {monty_opens + 1}</strong>, revealing a 🐐.</p>", unsafe_allow_html=True)
 
     # Display current door state with Monty’s door revealed
@@ -82,7 +83,7 @@ elif st.session_state.phase == "switch":
         prize = doors[final_choice]
 
         st.markdown("<p style='font-size:18px;'>Revealing your door...</p>", unsafe_allow_html=True)
-        time.sleep(1.5)
+        time.sleep(.9)
 
         # Update door display
         final_doors = ["🚪"] * 3
@@ -99,6 +100,28 @@ elif st.session_state.phase == "switch":
         st.markdown(f"<p style='font-size:20px;'>Behind Door {final_choice + 1} was a <strong>{prize.upper()}</strong>.</p>", unsafe_allow_html=True)
 
         if prize == 'car':
-            st.success("🎉 You WON the car!")
+            st.success("🎉🎉🎉 You WON the car! 🎉🎉🎉")
+            if trade:
+                st.markdown("<p style='font-size:20px;'>Congratulations, switching paid off — that’s the best strategy!</p>", unsafe_allow_html=True)
+            else:
+                st.markdown(
+                    "<p style='font-size:20px;'>Congratulations — but just know you were lucky. "
+                    "You didn’t switch, but still got the car. That was not the best strategy, even if it worked this time.</p>",
+                    unsafe_allow_html=True
+                )
         else:
             st.error("😢 You got a goat.")
+            if trade:
+                st.markdown("<p style='font-size:20px;'>Don’t feel bad — switching is still the better strategy over many games.</p>", unsafe_allow_html=True)
+            else:
+                st.markdown("<p style='font-size:20px;'>Sorry! If you had switched, you'd have had a better chance.</p>", unsafe_allow_html=True)
+
+        # 💡 Follow-up with blog link
+        st.markdown(
+            """
+            <hr>
+            <p style='font-size:24px;'> For a detailed explanation of why <strong>switching<\strong> is definitely the best strategy (and also how I made this game) check out my 
+            <a href='https://github.com/PessoaP/blog/blob/master/3doors/3doors.ipynb' target='_blank'>blog post</a>.</p>
+            """,
+            unsafe_allow_html=True
+        )

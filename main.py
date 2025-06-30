@@ -115,9 +115,9 @@ elif st.session_state.phase == "switch":
                     unsafe_allow_html=True
                 )
         else:
-            st.error("😢 You got a goat.")
+            st.error("😢 You got a goat. 😢")
             if trade:
-                st.markdown("<p style='font-size:24px;'>Don’t feel bad — switching is still the better strategy over many games.</p>", unsafe_allow_html=True)
+                st.markdown("<p style='font-size:24px;'>Don’t feel bad — switching is still the better strategy!!! </p>", unsafe_allow_html=True)
             else:
                 st.markdown("<p style='font-size:24px;'>Sorry! If you had switched, you'd have had a better chance.</p>", unsafe_allow_html=True)
 
